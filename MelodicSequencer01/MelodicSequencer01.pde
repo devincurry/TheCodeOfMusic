@@ -7,6 +7,7 @@ float seqW = 800;
 float seqH = 800;
 
 //on off for sequencer
+boolean beat00 = false;
 boolean beat01 = false;
 boolean beat02 = false;
 boolean beat03 = false;
@@ -22,7 +23,6 @@ boolean beat12 = false;
 boolean beat13 = false;
 boolean beat14 = false;
 boolean beat15 = false;
-boolean beat16 = false;
 
 
 int [][] stepArray = { {60, 62, 64, 65, 67, 69, 71, 72}, 
@@ -63,7 +63,6 @@ void draw() {
   
   int steps = 16;
   int scaleNotes = 8;
-//int scaleNotes = 1;
   for (int i = 0; i < steps; i++) {
     int j = (int) random(0, stepArray[i].length - 1);
     Note note = new Note(0, stepArray[i][j], 127);
@@ -86,8 +85,6 @@ void onBeat() {
   delay(400); //this is an initial, dirty way of doing this!
   myBus.sendNoteOff(note);
 }
-
-void checkSteps() {}
 
 void exit() {
   println("stop");
