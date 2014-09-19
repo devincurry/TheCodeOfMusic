@@ -24,7 +24,7 @@ boolean beat14 = false;
 boolean beat15 = false;
 boolean beat16 = false;
 
-/*
+
 int [][] stepArray = { {60, 62, 64, 65, 67, 69, 71, 72}, 
   {60, 62, 64, 65, 67, 69, 71, 72}, 
   {60, 62, 64, 65, 67, 69, 71, 72}, 
@@ -32,9 +32,15 @@ int [][] stepArray = { {60, 62, 64, 65, 67, 69, 71, 72},
   {60, 62, 64, 65, 67, 69, 71, 72}, 
   {60, 62, 64, 65, 67, 69, 71, 72}, 
   {60, 62, 64, 65, 67, 69, 71, 72}, 
+  {60, 62, 64, 65, 67, 69, 71, 72},
+  {60, 62, 64, 65, 67, 69, 71, 72}, 
+  {60, 62, 64, 65, 67, 69, 71, 72}, 
+  {60, 62, 64, 65, 67, 69, 71, 72}, 
+  {60, 62, 64, 65, 67, 69, 71, 72}, 
+  {60, 62, 64, 65, 67, 69, 71, 72}, 
+  {60, 62, 64, 65, 67, 69, 71, 72}, 
+  {60, 62, 64, 65, 67, 69, 71, 72}, 
   {60, 62, 64, 65, 67, 69, 71, 72} };
-  */
-  
   
 
 void setup() {
@@ -55,19 +61,21 @@ void draw() {
   }
   */
   
-  int steps = 8;
+  int steps = 16;
   int scaleNotes = 8;
-  int[][] stepArray = new int [steps][scaleNotes];
+//int scaleNotes = 1;
   for (int i = 0; i < steps; i++) {
-    for (int j = 0; j < scaleNotes; j++) {
-    stepArray[i][j] = 0;
+    int j = (int) random(0, stepArray[i].length - 1);
     Note note = new Note(0, stepArray[i][j], 127);
     myBus.sendNoteOn(note);
     delay(400); //this is an initial, dirty way of doing this!
     myBus.sendNoteOff(note);
-  }
+    println (i,j);
+
 }
 }
+
+  
 
 void onBeat() {
   int midiNote = (int)random(50, 73);
