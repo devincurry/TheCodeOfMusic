@@ -7,24 +7,8 @@ float beatLength;
 int seqW = 1200;
 int seqH = 800;
 int lightSize = 20;
-boolean light00 = false;
-boolean light01 = false;
-boolean light02 = false;
-boolean light03 = false;
-boolean light04 = false;
-boolean light05 = false;
-boolean light06 = false;
-boolean light07 = false;
-boolean light08 = false;
-boolean light09 = false;
-boolean light10 = false;
-boolean light11 = false;
-boolean light12 = false;
-boolean light13 = false;
-boolean light14 = false;
-boolean light15 = false;
-
-
+//float lightPos = seqW/16 + seqW/32;
+int lightPos;
 
 int velocity;
 
@@ -46,6 +30,22 @@ boolean beat13 = true;
 boolean beat14 = false;
 boolean beat15 = true;
 
+boolean light00 = false;
+boolean light01 = false;
+boolean light02 = false;
+boolean light03 = false;
+boolean light04 = false;
+boolean light05 = false;
+boolean light06 = false;
+boolean light07 = false;
+boolean light08 = false;
+boolean light09 = false;
+boolean light10 = false;
+boolean light11 = false;
+boolean light12 = false;
+boolean light13 = false;
+boolean light14 = false;
+boolean light15 = false;
 
 int [][] stepArray = { 
   {
@@ -113,24 +113,6 @@ int [][] stepArray = {
   }
 };
 
-int [][] lightArray = {
-  {0,1},
-  {0,1},
-  {0,1},
-  {0,1},
-  {0,1},
-  {0,1},
-  {0,1},
-  {0,1},
-  {0,1},
-  {0,1},
-  {0,1},
-  {0,1},
-  {0,1},
-  {0,1},
-  {0,1},
-  {0,1}
-}
 
 
 void setup() {
@@ -142,16 +124,6 @@ void setup() {
   rectMode(CENTER);
   noStroke();
   fill(0, 100, 50);
-
-  /*
-  pushMatrix();
-   translate(seqW/32, 0);
-   for (int l = 0; l < 16; l++) {
-   ellipse((seqW/16)*l, seqH/3, lightSize, lightSize);
-   }
-   popMatrix();
-   */
-
 
   lastBeat = millis();
   beatLength = 500;
@@ -167,15 +139,7 @@ void draw() {
    }
    */
   background (0, 0, 20);
-  fill(0, 100, 50);
-  /*
-  pushMatrix();
-   translate(seqW/32, 0);
-   for (int l = 0; l < 16; l++) {
-   ellipse((seqW/16)*l, seqH/3, lightSize, lightSize);
-   }
-   popMatrix();
-   */
+
   int steps = 16;
   int scaleNotes = 8;
 
@@ -183,7 +147,6 @@ void draw() {
   for (int i = 0; i < steps; i++) {
     //    velocity = (int)random(70, 127);
 
-    //stepLight(i);
     //notes
     checkStep(i);
     int j = (int) random(0, stepArray[i].length - 1);
@@ -191,8 +154,11 @@ void draw() {
     myBus.sendNoteOn(note);
     delay(400); //this is an initial, dirty way of doing this!
     myBus.sendNoteOff(note);
+    checkStep(i);
+
     println (i, j, velocity);
   }
+  //    redLights();
 }
 
 
@@ -207,36 +173,55 @@ void onBeat() {
   myBus.sendNoteOff(note);
 }
 
-void stepLight(int currentStep) {
-  pushMatrix();
-  fill(0, 100, 100);
-  translate(seqW/32, 0);
-  ellipse((seqW/16)*currentStep, seqH/3, lightSize, lightSize);
-  popMatrix();
-}
 
 void checkStep(int stepNumb) {
+  /*
+  background(0,0,20);
+   fill(0, 100, 100);
+   lightPos = ((stepNumb+1)*(seqW/16))+(seqW/32);
+   ellipse(lightPos, seqH/2, lightSize, lightSize);
+   */
+
   if (stepNumb == 0) {
+    //light15 = false;
+    light00 = true;
+    redLights();
+
+    //    background(0, 0, 20);
+    //    ellipse(lightPos*stepNumb+1, seqH/2, lightSize, lightSize);
+    //    background(0,0,20);
     if (beat00 == false) {
       velocity = 0;
     } 
     else {
+      light00 = false;
       velocity = (int)random(70, 127);
+      redLights();
     }
   }
+
   if (stepNumb == 1) {
+    //light00 = false;
+    light01 = true;
+          redLights();
+
     if (beat01 == false) {
       velocity = 0;
     } 
     else {
+      light01 = false;
       velocity = (int)random(70, 127);
+            redLights();
+
     }
   }
+
   if (stepNumb == 2) {
     if (beat02 == false) {
       velocity = 0;
     } 
     else {
+      light02 = false;
       velocity = (int)random(70, 127);
     }
   }
@@ -245,9 +230,11 @@ void checkStep(int stepNumb) {
       velocity = 0;
     } 
     else {
-      velocity = (int)random(70, 127);
+            light03 = false;
+velocity = (int)random(70, 127);
     }
   }  
+  
   if (stepNumb == 4) {
     if (beat04 == false) {
       velocity = 0;
@@ -346,26 +333,38 @@ void checkStep(int stepNumb) {
   }
 }
 
-/*
-void lightsOff() {
-  light00 = false;
-  light01 = false;
-  light02 = false;
-  light03 = false;
-  light04 = false;
-  light05 = false;
-  light06 = false;
-  light07 = false;
-  light08 = false;
-  light09 = false;
-  light10 = false;
-  light11 = false;
-  light12 = false;
-  light13 = false;
-  light14 = false;
-  light15 = false;
+void redLights() {
+  if (light00 == true) {
+    //background(0, 0, 20);
+    fill(0, 100, 100);
+    ellipse(seqW/16, seqH/3, lightSize, lightSize);
+  } 
+  else {
+    //background(0, 0, 20);
+    fill(0, 100, 60);
+    ellipse(seqW/16, seqH/3, lightSize, lightSize);
+  }
+    if (light01 == true) {
+    //background(0, 0, 20);
+    fill(0, 100, 100);
+    ellipse(seqW/16, seqH/3, lightSize, lightSize);
+  } 
+  else {
+    //background(0, 0, 20);
+    fill(0, 100, 60);
+    ellipse((seqW/16)*2, seqH/3, lightSize, lightSize);
+  }
+    if (light02 == true) {
+    //background(0, 0, 20);
+    fill(0, 100, 100);
+    ellipse((seqW/16)*2, seqH/3, lightSize, lightSize);
+  } 
+  else {
+    //background(0, 0, 20);
+    fill(0, 100, 60);
+    ellipse((seqW/16)*2, seqH/3, lightSize, lightSize);
+  }
 }
-*/
 
 void exit() {
   println("stop");
