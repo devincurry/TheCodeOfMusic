@@ -10,42 +10,58 @@ int lightSize = 20;
 //float lightPos = seqW/16 + seqW/32;
 int lightPos;
 
+int buttonX1 = seqW/32;
+int buttonX;
+int buttonY = seqH/2;
+int buttonW = seqW/32;
+int buttonH = seqH/10;
+
+int buttonHue1 = 2;
+int buttonHue2 = 7;
+int buttonHue3 = 12;
+int buttonHue4 = 17;
+int buttonSat = 80;
+
+int buttonBright00;
+int buttonBright01;
+int buttonBright02;
+int buttonBright03;
+int buttonBright04;
+int buttonBright05;
+int buttonBright06;
+int buttonBright07;
+int buttonBright08;
+int buttonBright09;
+int buttonBright10;
+int buttonBright11;
+int buttonBright12;
+int buttonBright13;
+int buttonBright14;
+int buttonBright15;
+int buttonDark = 60;
+int buttonLight = 100;
+
 int velocity;
+int velMin = 80;
+int velMax = 127;
 
 //on off for sequencer
-boolean beat00 = true;
+boolean beat00 = false;
 boolean beat01 = true;
-boolean beat02 = false;
+boolean beat02 = true;
 boolean beat03 = true;
 boolean beat04 = true;
 boolean beat05 = true;
-boolean beat06 = false;
-boolean beat07 = false;
+boolean beat06 = true;
+boolean beat07 = true;
 boolean beat08 = true;
 boolean beat09 = true;
 boolean beat10 = true;
-boolean beat11 = false;
-boolean beat12 = false;
+boolean beat11 = true;
+boolean beat12 = true;
 boolean beat13 = true;
-boolean beat14 = false;
+boolean beat14 = true;
 boolean beat15 = true;
-
-boolean light00 = false;
-boolean light01 = false;
-boolean light02 = false;
-boolean light03 = false;
-boolean light04 = false;
-boolean light05 = false;
-boolean light06 = false;
-boolean light07 = false;
-boolean light08 = false;
-boolean light09 = false;
-boolean light10 = false;
-boolean light11 = false;
-boolean light12 = false;
-boolean light13 = false;
-boolean light14 = false;
-boolean light15 = false;
 
 int [][] stepArray = { 
   {
@@ -139,6 +155,20 @@ void draw() {
    }
    */
   background (0, 0, 20);
+  strokeWeight(5);
+
+  /*
+  //draw buttons
+   //button 00
+   stroke(buttonHue1, buttonSat, buttonDark);
+   fill(buttonHue1, buttonSat, buttonBright);
+   rect(buttonX1, buttonY, buttonW, buttonH);
+   
+   //button 01
+   
+   rect(buttonX1+buttonW*2, buttonY, buttonW, buttonH);
+   */
+
 
   int steps = 16;
   int scaleNotes = 8;
@@ -148,6 +178,8 @@ void draw() {
     //    velocity = (int)random(70, 127);
 
     //notes
+    //buttonX = buttonX1+buttonW*(i+1);
+
     checkStep(i);
     int j = (int) random(0, stepArray[i].length - 1);
     Note note = new Note(0, stepArray[i][j], velocity);
@@ -165,7 +197,7 @@ void draw() {
 
 void onBeat() {
   int midiNote = (int)random(50, 73);
-  int velocity = (int)random(80, 127);
+  int velocity = (int)random(85, 127);
 
   Note note = new Note(0, midiNote, velocity);
   myBus.sendNoteOn(note);
@@ -175,72 +207,100 @@ void onBeat() {
 
 
 void checkStep(int stepNumb) {
-  /*
-  background(0,0,20);
-   fill(0, 100, 100);
-   lightPos = ((stepNumb+1)*(seqW/16))+(seqW/32);
-   ellipse(lightPos, seqH/2, lightSize, lightSize);
-   */
+  buttonX = buttonX1+(buttonW*(stepNumb+1));
+  int buttonSpace = buttonW * (stepNumb -1);
+
 
   if (stepNumb == 0) {
-    //light15 = false;
-    light00 = true;
-    redLights();
 
-    //    background(0, 0, 20);
-    //    ellipse(lightPos*stepNumb+1, seqH/2, lightSize, lightSize);
-    //    background(0,0,20);
     if (beat00 == false) {
       velocity = 0;
+      buttonBright00 = buttonDark;
+      stroke(buttonHue1, buttonSat, buttonDark);
+      fill(buttonHue1, buttonSat, buttonBright00);
+      rect(buttonX1, buttonY, buttonW, buttonH);
     } 
     else {
-      light00 = false;
-      velocity = (int)random(70, 127);
-      redLights();
+      velocity = (int)random(velMin, velMax);
+      buttonBright00 = buttonLight;
+      stroke(buttonHue1, buttonSat, buttonDark);
+      fill(buttonHue1, buttonSat, buttonBright00);
+      rect(buttonX1, buttonY, buttonW, buttonH);
     }
   }
 
   if (stepNumb == 1) {
-    //light00 = false;
-    light01 = true;
-          redLights();
 
     if (beat01 == false) {
       velocity = 0;
+      buttonBright01 = buttonDark;
+      stroke(buttonHue1, buttonSat, buttonDark);
+      fill(buttonHue1, buttonSat, buttonBright01);
+      rect(buttonX, buttonY, buttonW, buttonH);
+      //      rect(buttonX1+buttonW*(stepNumb+1), buttonY, buttonW, buttonH);
     } 
     else {
-      light01 = false;
-      velocity = (int)random(70, 127);
-            redLights();
-
+      velocity = (int)random(velMin, velMax);
+      buttonBright01 = buttonLight;
+      stroke(buttonHue1, buttonSat, buttonDark);
+      fill(buttonHue1, buttonSat, buttonBright01);
+      rect(buttonX, buttonY, buttonW, buttonH);
+      //      rect(buttonX1+buttonW*2, buttonY, buttonW, buttonH);
     }
   }
 
   if (stepNumb == 2) {
     if (beat02 == false) {
       velocity = 0;
+      buttonBright02 = buttonDark;
+      stroke(buttonHue1, buttonSat, buttonDark);
+      fill(buttonHue1, buttonSat, buttonBright02);
+      //      rect(buttonX+buttonW, buttonY, buttonW, buttonH);
+      rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     } 
     else {
-      light02 = false;
-      velocity = (int)random(70, 127);
+      velocity = (int)random(velMin, velMax);
+      buttonBright02 = buttonLight;
+      stroke(buttonHue1, buttonSat, buttonDark);
+      fill(buttonHue1, buttonSat, buttonBright02);
+      //      rect(buttonX+buttonW, buttonY, buttonW, buttonH);
+      rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     }
   }
+
   if (stepNumb == 3) {
     if (beat03 == false) {
       velocity = 0;
+      buttonBright03 = buttonDark;
+      stroke(buttonHue1, buttonSat, buttonDark);
+      fill(buttonHue1, buttonSat, buttonBright03);
+      //      rect(buttonX+buttonW*2, buttonY, buttonW, buttonH);
+      rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     } 
     else {
-            light03 = false;
-velocity = (int)random(70, 127);
+      velocity = (int)random(velMin, velMax);
+      buttonBright03 = buttonLight;
+      stroke(buttonHue1, buttonSat, buttonDark);
+      fill(buttonHue1, buttonSat, buttonBright03);
+      //      rect(buttonX+buttonW*2, buttonY, buttonW, buttonH);
+      rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     }
   }  
-  
+
   if (stepNumb == 4) {
     if (beat04 == false) {
       velocity = 0;
+      buttonBright04 = buttonDark;
+      stroke(buttonHue2, buttonSat, buttonDark);
+      fill(buttonHue2, buttonSat, buttonBright04);
+      rect(buttonX+buttonW*3, buttonY, buttonW, buttonH);
     } 
     else {
-      velocity = (int)random(70, 127);
+      velocity = (int)random(velMin, velMax);
+      buttonBright04 = buttonLight;
+      stroke(buttonHue2, buttonSat, buttonDark);
+      fill(buttonHue2, buttonSat, buttonBright04);
+      rect(buttonX+buttonW*3, buttonY, buttonW, buttonH);
     }
   }  
   if (stepNumb == 5) {
@@ -248,7 +308,7 @@ velocity = (int)random(70, 127);
       velocity = 0;
     } 
     else {
-      velocity = (int)random(70, 127);
+      velocity = (int)random(velMin, velMax);
     }
   }  
   if (stepNumb == 6) {
@@ -256,7 +316,7 @@ velocity = (int)random(70, 127);
       velocity = 0;
     } 
     else {
-      velocity = (int)random(70, 127);
+      velocity = (int)random(velMin, velMax);
     }
   }  
   if (stepNumb == 7) {
@@ -264,7 +324,7 @@ velocity = (int)random(70, 127);
       velocity = 0;
     } 
     else {
-      velocity = (int)random(70, 127);
+      velocity = (int)random(velMin, velMax);
     }
   }  
   if (stepNumb == 8) {
@@ -272,7 +332,7 @@ velocity = (int)random(70, 127);
       velocity = 0;
     } 
     else {
-      velocity = (int)random(70, 127);
+      velocity = (int)random(velMin, velMax);
     }
   }  
   if (stepNumb == 9) {
@@ -280,7 +340,7 @@ velocity = (int)random(70, 127);
       velocity = 0;
     } 
     else {
-      velocity = (int)random(70, 127);
+      velocity = (int)random(velMin, velMax);
     }
   }  
   if (stepNumb == 10) {
@@ -288,7 +348,7 @@ velocity = (int)random(70, 127);
       velocity = 0;
     } 
     else {
-      velocity = (int)random(70, 127);
+      velocity = (int)random(velMin, velMax);
     }
   }  
   if (stepNumb == 11) {
@@ -296,7 +356,7 @@ velocity = (int)random(70, 127);
       velocity = 0;
     } 
     else {
-      velocity = (int)random(70, 127);
+      velocity = (int)random(velMin, velMax);
     }
   }  
   if (stepNumb == 12) {
@@ -304,7 +364,7 @@ velocity = (int)random(70, 127);
       velocity = 0;
     } 
     else {
-      velocity = (int)random(70, 127);
+      velocity = (int)random(velMin, velMax);
     }
   }  
   if (stepNumb == 13) {
@@ -312,7 +372,7 @@ velocity = (int)random(70, 127);
       velocity = 0;
     } 
     else {
-      velocity = (int)random(70, 127);
+      velocity = (int)random(velMin, velMax);
     }
   }  
   if (stepNumb == 14) {
@@ -320,7 +380,7 @@ velocity = (int)random(70, 127);
       velocity = 0;
     } 
     else {
-      velocity = (int)random(70, 127);
+      velocity = (int)random(velMin, velMax);
     }
   }  
   if (stepNumb == 15) {
@@ -328,41 +388,8 @@ velocity = (int)random(70, 127);
       velocity = 0;
     } 
     else {
-      velocity = (int)random(70, 127);
+      velocity = (int)random(velMin, velMax);
     }
-  }
-}
-
-void redLights() {
-  if (light00 == true) {
-    //background(0, 0, 20);
-    fill(0, 100, 100);
-    ellipse(seqW/16, seqH/3, lightSize, lightSize);
-  } 
-  else {
-    //background(0, 0, 20);
-    fill(0, 100, 60);
-    ellipse(seqW/16, seqH/3, lightSize, lightSize);
-  }
-    if (light01 == true) {
-    //background(0, 0, 20);
-    fill(0, 100, 100);
-    ellipse(seqW/16, seqH/3, lightSize, lightSize);
-  } 
-  else {
-    //background(0, 0, 20);
-    fill(0, 100, 60);
-    ellipse((seqW/16)*2, seqH/3, lightSize, lightSize);
-  }
-    if (light02 == true) {
-    //background(0, 0, 20);
-    fill(0, 100, 100);
-    ellipse((seqW/16)*2, seqH/3, lightSize, lightSize);
-  } 
-  else {
-    //background(0, 0, 20);
-    fill(0, 100, 60);
-    ellipse((seqW/16)*2, seqH/3, lightSize, lightSize);
   }
 }
 
