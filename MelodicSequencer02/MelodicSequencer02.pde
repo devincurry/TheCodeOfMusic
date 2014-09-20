@@ -3,8 +3,8 @@ MidiBus myBus;
 
 int lastBeat;
 float beatLength;
-float seqW = 800;
-float seqH = 800;
+int seqW = 800;
+int seqH = 800;
 
 int velocity;
 
