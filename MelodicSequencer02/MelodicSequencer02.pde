@@ -7,6 +7,24 @@ float beatLength;
 int seqW = 1200;
 int seqH = 800;
 int lightSize = 20;
+boolean light00 = false;
+boolean light01 = false;
+boolean light02 = false;
+boolean light03 = false;
+boolean light04 = false;
+boolean light05 = false;
+boolean light06 = false;
+boolean light07 = false;
+boolean light08 = false;
+boolean light09 = false;
+boolean light10 = false;
+boolean light11 = false;
+boolean light12 = false;
+boolean light13 = false;
+boolean light14 = false;
+boolean light15 = false;
+
+
 
 int velocity;
 
@@ -95,6 +113,25 @@ int [][] stepArray = {
   }
 };
 
+int [][] lightArray = {
+  {0,1},
+  {0,1},
+  {0,1},
+  {0,1},
+  {0,1},
+  {0,1},
+  {0,1},
+  {0,1},
+  {0,1},
+  {0,1},
+  {0,1},
+  {0,1},
+  {0,1},
+  {0,1},
+  {0,1},
+  {0,1}
+}
+
 
 void setup() {
   size (seqW, seqH);
@@ -105,12 +142,15 @@ void setup() {
   rectMode(CENTER);
   noStroke();
   fill(0, 100, 50);
+
+  /*
   pushMatrix();
-  translate(seqW/32, 0);
-  for (int l = 0; l < 16; l++) {
-    ellipse((seqW/16)*l, seqH/3, lightSize, lightSize);
-  }
-  popMatrix();
+   translate(seqW/32, 0);
+   for (int l = 0; l < 16; l++) {
+   ellipse((seqW/16)*l, seqH/3, lightSize, lightSize);
+   }
+   popMatrix();
+   */
 
 
   lastBeat = millis();
@@ -126,14 +166,16 @@ void draw() {
    onBeat();
    }
    */
+  background (0, 0, 20);
   fill(0, 100, 50);
+  /*
   pushMatrix();
-  translate(seqW/32, 0);
-  for (int l = 0; l < 16; l++) {
-    ellipse((seqW/16)*l, seqH/3, lightSize, lightSize);
-  }
-  popMatrix();
-
+   translate(seqW/32, 0);
+   for (int l = 0; l < 16; l++) {
+   ellipse((seqW/16)*l, seqH/3, lightSize, lightSize);
+   }
+   popMatrix();
+   */
   int steps = 16;
   int scaleNotes = 8;
 
@@ -303,6 +345,27 @@ void checkStep(int stepNumb) {
     }
   }
 }
+
+/*
+void lightsOff() {
+  light00 = false;
+  light01 = false;
+  light02 = false;
+  light03 = false;
+  light04 = false;
+  light05 = false;
+  light06 = false;
+  light07 = false;
+  light08 = false;
+  light09 = false;
+  light10 = false;
+  light11 = false;
+  light12 = false;
+  light13 = false;
+  light14 = false;
+  light15 = false;
+}
+*/
 
 void exit() {
   println("stop");
