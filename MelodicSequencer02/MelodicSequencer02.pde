@@ -3,8 +3,10 @@ MidiBus myBus;
 
 int lastBeat;
 float beatLength;
-int seqW = 800;
+
+int seqW = 1200;
 int seqH = 800;
+int lightSize = 20;
 
 int velocity;
 
@@ -95,8 +97,21 @@ int [][] stepArray = {
 
 
 void setup() {
-  //size (seqW, seqH);
-  //background (0);
+  size (seqW, seqH);
+  colorMode(HSB, 100, 100, 100);
+  background (0, 0, 20);
+
+  ellipseMode(CENTER);
+  rectMode(CENTER);
+  noStroke();
+  fill(0, 100, 50);
+  pushMatrix();
+  translate(seqW/32, 0);
+  for (int l = 0; l < 16; l++) {
+    ellipse((seqW/16)*l, seqH/3, lightSize, lightSize);
+  }
+  popMatrix();
+
 
   lastBeat = millis();
   beatLength = 500;
@@ -111,11 +126,23 @@ void draw() {
    onBeat();
    }
    */
+  fill(0, 100, 50);
+  pushMatrix();
+  translate(seqW/32, 0);
+  for (int l = 0; l < 16; l++) {
+    ellipse((seqW/16)*l, seqH/3, lightSize, lightSize);
+  }
+  popMatrix();
 
   int steps = 16;
   int scaleNotes = 8;
+
+
   for (int i = 0; i < steps; i++) {
     //    velocity = (int)random(70, 127);
+
+    //stepLight(i);
+    //notes
     checkStep(i);
     int j = (int) random(0, stepArray[i].length - 1);
     Note note = new Note(0, stepArray[i][j], velocity);
@@ -136,6 +163,14 @@ void onBeat() {
   myBus.sendNoteOn(note);
   delay(400); //this is an initial, dirty way of doing this!
   myBus.sendNoteOff(note);
+}
+
+void stepLight(int currentStep) {
+  pushMatrix();
+  fill(0, 100, 100);
+  translate(seqW/32, 0);
+  ellipse((seqW/16)*currentStep, seqH/3, lightSize, lightSize);
+  popMatrix();
 }
 
 void checkStep(int stepNumb) {
@@ -163,91 +198,103 @@ void checkStep(int stepNumb) {
       velocity = (int)random(70, 127);
     }
   }
-    if (stepNumb == 3) {
+  if (stepNumb == 3) {
     if (beat03 == false) {
       velocity = 0;
     } 
     else {
       velocity = (int)random(70, 127);
     }
-  }  if (stepNumb == 4) {
+  }  
+  if (stepNumb == 4) {
     if (beat04 == false) {
       velocity = 0;
     } 
     else {
       velocity = (int)random(70, 127);
     }
-  }  if (stepNumb == 5) {
+  }  
+  if (stepNumb == 5) {
     if (beat05 == false) {
       velocity = 0;
     } 
     else {
       velocity = (int)random(70, 127);
     }
-  }  if (stepNumb == 6) {
+  }  
+  if (stepNumb == 6) {
     if (beat06 == false) {
       velocity = 0;
     } 
     else {
       velocity = (int)random(70, 127);
     }
-  }  if (stepNumb == 7) {
+  }  
+  if (stepNumb == 7) {
     if (beat07 == false) {
       velocity = 0;
     } 
     else {
       velocity = (int)random(70, 127);
     }
-  }  if (stepNumb == 8) {
+  }  
+  if (stepNumb == 8) {
     if (beat08 == false) {
       velocity = 0;
     } 
     else {
       velocity = (int)random(70, 127);
     }
-  }  if (stepNumb == 9) {
+  }  
+  if (stepNumb == 9) {
     if (beat09 == false) {
       velocity = 0;
     } 
     else {
       velocity = (int)random(70, 127);
     }
-  }  if (stepNumb == 10) {
+  }  
+  if (stepNumb == 10) {
     if (beat10 == false) {
       velocity = 0;
     } 
     else {
       velocity = (int)random(70, 127);
     }
-  }  if (stepNumb == 11) {
+  }  
+  if (stepNumb == 11) {
     if (beat11 == false) {
       velocity = 0;
     } 
     else {
       velocity = (int)random(70, 127);
     }
-  }  if (stepNumb == 12) {
+  }  
+  if (stepNumb == 12) {
     if (beat12 == false) {
       velocity = 0;
     } 
     else {
       velocity = (int)random(70, 127);
     }
-  }  if (stepNumb == 13) {
+  }  
+  if (stepNumb == 13) {
     if (beat13 == false) {
       velocity = 0;
     } 
     else {
       velocity = (int)random(70, 127);
     }
-  }  if (stepNumb == 14) {
+  }  
+  if (stepNumb == 14) {
     if (beat14 == false) {
       velocity = 0;
     } 
     else {
       velocity = (int)random(70, 127);
     }
-  }  if (stepNumb == 15) {
+  }  
+  if (stepNumb == 15) {
     if (beat15 == false) {
       velocity = 0;
     } 
@@ -255,7 +302,6 @@ void checkStep(int stepNumb) {
       velocity = (int)random(70, 127);
     }
   }
-  
 }
 
 void exit() {
