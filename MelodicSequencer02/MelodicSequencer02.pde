@@ -46,7 +46,8 @@ int velMin = 80;
 int velMax = 127;
 
 //on off for sequencer
-boolean beat00 = false;
+/*
+boolean beat00 = true;
 boolean beat01 = true;
 boolean beat02 = true;
 boolean beat03 = true;
@@ -62,6 +63,24 @@ boolean beat12 = true;
 boolean beat13 = true;
 boolean beat14 = true;
 boolean beat15 = true;
+*/
+
+boolean beat00 = false;
+boolean beat01 = false;
+boolean beat02 = false;
+boolean beat03 = false;
+boolean beat04 = false;
+boolean beat05 = false;
+boolean beat06 = false;
+boolean beat07 = false;
+boolean beat08 = false;
+boolean beat09 = false;
+boolean beat10 = false;
+boolean beat11 = false;
+boolean beat12 = false;
+boolean beat13 = false;
+boolean beat14 = false;
+boolean beat15 = false;
 
 int [][] stepArray = { 
   {
@@ -293,102 +312,191 @@ void checkStep(int stepNumb) {
       buttonBright04 = buttonDark;
       stroke(buttonHue2, buttonSat, buttonDark);
       fill(buttonHue2, buttonSat, buttonBright04);
-      rect(buttonX+buttonW*3, buttonY, buttonW, buttonH);
+      rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     } 
     else {
       velocity = (int)random(velMin, velMax);
       buttonBright04 = buttonLight;
       stroke(buttonHue2, buttonSat, buttonDark);
       fill(buttonHue2, buttonSat, buttonBright04);
-      rect(buttonX+buttonW*3, buttonY, buttonW, buttonH);
+      rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     }
   }  
   if (stepNumb == 5) {
     if (beat05 == false) {
       velocity = 0;
+      buttonBright05 = buttonDark;
+      stroke(buttonHue2, buttonSat, buttonDark);
+      fill(buttonHue2, buttonSat, buttonBright05);
+      rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     } 
     else {
       velocity = (int)random(velMin, velMax);
+      buttonBright05 = buttonLight;
+      stroke(buttonHue2, buttonSat, buttonDark);
+      fill(buttonHue2, buttonSat, buttonBright05);
+      rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     }
   }  
   if (stepNumb == 6) {
     if (beat06 == false) {
       velocity = 0;
+      buttonBright06 = buttonDark;
+      stroke(buttonHue2, buttonSat, buttonDark);
+      fill(buttonHue2, buttonSat, buttonBright06);
+      rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     } 
     else {
       velocity = (int)random(velMin, velMax);
+      buttonBright06 = buttonLight;
+      stroke(buttonHue2, buttonSat, buttonDark);
+      fill(buttonHue2, buttonSat, buttonBright06);
+      rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     }
   }  
   if (stepNumb == 7) {
     if (beat07 == false) {
       velocity = 0;
+      buttonBright07 = buttonDark;
+      stroke(buttonHue2, buttonSat, buttonDark);
+      fill(buttonHue2, buttonSat, buttonBright07);
+      rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     } 
     else {
       velocity = (int)random(velMin, velMax);
+      buttonBright07 = buttonLight;
+      stroke(buttonHue2, buttonSat, buttonDark);
+      fill(buttonHue2, buttonSat, buttonBright07);
+      rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     }
   }  
   if (stepNumb == 8) {
     if (beat08 == false) {
       velocity = 0;
+      buttonBright08 = buttonDark;
+      stroke(buttonHue3, buttonSat, buttonDark);
+      fill(buttonHue3, buttonSat, buttonBright08);
+      rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     } 
     else {
       velocity = (int)random(velMin, velMax);
+      buttonBright08 = buttonLight;
+      stroke(buttonHue3, buttonSat, buttonDark);
+      fill(buttonHue3, buttonSat, buttonBright08);
+      rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     }
   }  
   if (stepNumb == 9) {
     if (beat09 == false) {
       velocity = 0;
+      buttonBright09 = buttonDark;
+      stroke(buttonHue3, buttonSat, buttonDark);
+      fill(buttonHue3, buttonSat, buttonBright09);
+      rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     } 
     else {
       velocity = (int)random(velMin, velMax);
+      buttonBright09 = buttonLight;
+      stroke(buttonHue3, buttonSat, buttonDark);
+      fill(buttonHue3, buttonSat, buttonBright09);
+      rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     }
   }  
+
   if (stepNumb == 10) {
     if (beat10 == false) {
       velocity = 0;
+      buttonBright10 = buttonDark;
+      stroke(buttonHue3, buttonSat, buttonDark);
+      fill(buttonHue3, buttonSat, buttonBright10);
+      rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     } 
     else {
       velocity = (int)random(velMin, velMax);
+      buttonBright10 = buttonLight;
+      stroke(buttonHue3, buttonSat, buttonDark);
+      fill(buttonHue3, buttonSat, buttonBright10);
+      rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     }
   }  
   if (stepNumb == 11) {
     if (beat11 == false) {
       velocity = 0;
+      buttonBright11 = buttonDark;
+      stroke(buttonHue3, buttonSat, buttonDark);
+      fill(buttonHue3, buttonSat, buttonBright11);
+      rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     } 
     else {
       velocity = (int)random(velMin, velMax);
+      buttonBright11 = buttonLight;
+      stroke(buttonHue3, buttonSat, buttonDark);
+      fill(buttonHue3, buttonSat, buttonBright11);
+      rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     }
   }  
   if (stepNumb == 12) {
     if (beat12 == false) {
       velocity = 0;
+      buttonBright12 = buttonDark;
+      stroke(buttonHue4, 0, buttonDark);
+      fill(buttonHue4, 0, buttonBright12);
+      rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     } 
     else {
       velocity = (int)random(velMin, velMax);
+      buttonBright12 = buttonLight;
+      stroke(buttonHue4, 0, buttonDark);
+      fill(buttonHue4, 0, buttonBright12);
+      rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     }
   }  
   if (stepNumb == 13) {
     if (beat13 == false) {
       velocity = 0;
+      buttonBright13 = buttonDark;
+      stroke(buttonHue4, 0, buttonDark);
+      fill(buttonHue4, 0, buttonBright13);
+      rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     } 
     else {
       velocity = (int)random(velMin, velMax);
+      buttonBright13 = buttonLight;
+      stroke(buttonHue4, 0, buttonDark);
+      fill(buttonHue4, 0, buttonBright13);
+      rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     }
   }  
   if (stepNumb == 14) {
     if (beat14 == false) {
       velocity = 0;
+      buttonBright14 = buttonDark;
+      stroke(buttonHue4, 0, buttonDark);
+      fill(buttonHue4, 0, buttonBright14);
+      rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     } 
     else {
       velocity = (int)random(velMin, velMax);
+      buttonBright14 = buttonLight;
+      stroke(buttonHue4, 0, buttonDark);
+      fill(buttonHue4, 0, buttonBright14);
+      rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     }
   }  
   if (stepNumb == 15) {
     if (beat15 == false) {
       velocity = 0;
+      buttonBright14 = buttonDark;
+      stroke(buttonHue4, 0, buttonDark);
+      fill(buttonHue4, 0, buttonBright14);
+      rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     } 
     else {
       velocity = (int)random(velMin, velMax);
+      buttonBright14 = buttonLight;
+      stroke(buttonHue4, 0, buttonDark);
+      fill(buttonHue4, 0, buttonBright14);
+      rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     }
   }
 }
