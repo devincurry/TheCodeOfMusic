@@ -182,6 +182,7 @@ void draw() {
 
   int steps = 16;
   int scaleNotes = 8;
+  checkMouse();
 
 
   for (int i = 0; i < steps; i++) {
@@ -483,14 +484,8 @@ void checkStep(int stepNumb) {
   }
 }
 
-void mousePressed() {
-  if (mouseClick == false) {
-    mouseClick = true;
-  } else {
-    mouseClick = false;
-  }
-    
-  /*if (mouseX >= buttonW && mouseX < buttonW*2 && mouseY > buttonH-buttonY/2 && mouseY < buttonH+buttonY/2) {
+void checkMouse() {
+  if (mousePressed) { 
     if (beat00 == false) {
       beat00 = true;
       buttonBright00 = buttonLight;
@@ -499,100 +494,125 @@ void mousePressed() {
       beat00 = false;
       buttonBright00 = buttonDark;
     }
-    */
- // }
-    /* 
-     if (beat01 == false) {
-     beat00 = true;
-     buttonBright00 = buttonLight;
-     } 
-     else if (beat01 == true) {
-     beat01 = false;
-     buttonBright01 = buttonDark;
-     }
-     
-     if (beat02 == false) {
-     beat02 = true;
-     buttonBright02 = buttonLight;
-     } 
-     else if (beat02 == true) {
-     beat02 = false;
-     buttonBright02 = buttonDark;
-     }
-     
-     if (beat03 == false) {
-     beat03 = true;
-     buttonBright03 = buttonLight;
-     } 
-     else if (beat03 == true) {
-     beat03 = false;
-     buttonBright03 = buttonDark;
-     }
-     
-     if (beat04 == false) {
-     beat04 = true;
-     buttonBright04 = buttonLight;
-     } 
-     else if (beat04 == true) {
-     beat04 = false;
-     buttonBright04 = buttonDark;
-     }
-     
-     if (beat05 == false) {
-     beat05 = true;
-     buttonBright05 = buttonLight;
-     } 
-     else if (beat05 == true) {
-     beat05 = false;
-     buttonBright05 = buttonDark;
-     }
-     
-     if (beat06 == false) {
-     beat06 = true;
-     buttonBright06 = buttonLight;
-     } 
-     else if (beat06 == true) {
-     beat06 = false;
-     buttonBright06 = buttonDark;
-     }
-     
-     if (beat07 == false) {
-     beat07 = true;
-     buttonBright07 = buttonLight;
-     } 
-     else if (beat07 == true) {
-     beat07 = false;
-     buttonBright07 = buttonDark;
-     }
-     
-     if (beat08 == false) {
-     beat08 = true;
-     buttonBright08 = buttonLight;
-     } 
-     else if (beat08 == true) {
-     beat08 = false;
-     buttonBright08 = buttonDark;
-     }
-     
-     if (beat00 == false) {
-     beat00 = true;
-     buttonBright00 = buttonLight;
-     } 
-     else if (beat00 == true) {
-     beat00 = false;
-     buttonBright00 = buttonDark;
-     }
-     
-     if (beat00 == false) {
-     beat00 = true;
-     buttonBright00 = buttonLight;
-     } 
-     else if (beat00 == true) {
-     beat00 = false;
-     buttonBright00 = buttonDark;
-     }
-     */
   }
+
+  /*
+
+   void mousePressed() {
+   
+   if (mouseClick == false) {
+   mouseClick = true;
+   //mouseClick = false;
+   } else {
+   mouseClick = false;
+   }
+   
+   if (mouseX >= buttonW && mouseX < buttonW*2 && mouseY > buttonH-buttonY/2 && mouseY < buttonH+buttonY/2) {
+   if (beat00 == false) {
+   beat00 = true;
+   buttonBright00 = buttonLight;
+   } 
+   else if (beat00 == true) {
+   beat00 = false;
+   buttonBright00 = buttonDark;
+   }
+   
+   // }
+   
+   if (beat01 == false) {
+   beat00 = true;
+   buttonBright00 = buttonLight;
+   } 
+   else if (beat01 == true) {
+   beat01 = false;
+   buttonBright01 = buttonDark;
+   }
+   
+   if (beat02 == false) {
+   beat02 = true;
+   buttonBright02 = buttonLight;
+   } 
+   else if (beat02 == true) {
+   beat02 = false;
+   buttonBright02 = buttonDark;
+   }
+   
+   if (beat03 == false) {
+   beat03 = true;
+   buttonBright03 = buttonLight;
+   } 
+   else if (beat03 == true) {
+   beat03 = false;
+   buttonBright03 = buttonDark;
+   }
+   
+   if (beat04 == false) {
+   beat04 = true;
+   buttonBright04 = buttonLight;
+   } 
+   else if (beat04 == true) {
+   beat04 = false;
+   buttonBright04 = buttonDark;
+   }
+   
+   if (beat05 == false) {
+   beat05 = true;
+   buttonBright05 = buttonLight;
+   } 
+   else if (beat05 == true) {
+   beat05 = false;
+   buttonBright05 = buttonDark;
+   }
+   
+   if (beat06 == false) {
+   beat06 = true;
+   buttonBright06 = buttonLight;
+   } 
+   else if (beat06 == true) {
+   beat06 = false;
+   buttonBright06 = buttonDark;
+   }
+   
+   if (beat07 == false) {
+   beat07 = true;
+   buttonBright07 = buttonLight;
+   } 
+   else if (beat07 == true) {
+   beat07 = false;
+   buttonBright07 = buttonDark;
+   }
+   
+   if (beat08 == false) {
+   beat08 = true;
+   buttonBright08 = buttonLight;
+   } 
+   else if (beat08 == true) {
+   beat08 = false;
+   buttonBright08 = buttonDark;
+   }
+   
+   if (beat00 == false) {
+   beat00 = true;
+   buttonBright00 = buttonLight;
+   } 
+   else if (beat00 == true) {
+   beat00 = false;
+   buttonBright00 = buttonDark;
+   }
+   
+   if (beat00 == false) {
+   beat00 = true;
+   buttonBright00 = buttonLight;
+   } 
+   else if (beat00 == true) {
+   beat00 = false;
+   buttonBright00 = buttonDark;
+   }
+   
+   }
+   */
+}
+
 
   void exit() {
     println("stop");
