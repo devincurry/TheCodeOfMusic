@@ -26,73 +26,6 @@ int step = 1;
 WavePlayer wp;
 Gain g;
 
-int [][] hatClosedArray = { 
-  {
-    0, 1
-  }
-  , 
-  {
-    0, 1
-  }
-  , 
-  {
-    0, 1
-  }
-  , 
-  {
-    0, 1
-  }
-  , 
-  {
-    0, 1
-  }
-  , 
-  {
-    0, 1
-  }
-  , 
-  {
-    0, 1
-  }
-  , 
-  {
-    0, 1
-  }
-  , 
-  {
-    0, 1
-  }
-  , 
-  {
-    0, 1
-  }
-  , 
-  {
-    0, 1
-  }
-  , 
-  {
-    0, 1
-  }
-  , 
-  {
-    0, 1
-  }
-  , 
-  {
-    0, 1
-  }
-  , 
-  {
-    0, 1
-  }
-  , 
-  {
-    0, 1
-  }
-};
-
-
 void setup() {  
   ac = new AudioContext();
   BPM = 320;
@@ -156,11 +89,10 @@ void draw() {
 
 void onClock(Clock c) {   
   if (c.isBeat()) {      
-    //kick.trigger();
-    //clap.trigger();
     playKick();
     playSnare();
     playHatClosed();
+    playClap();
     isBeat = true;
   }
 }
@@ -171,24 +103,54 @@ void countSteps() {
   }
 }
 
+void playKick() {
+  if (step == 1 || step == 5 || step == 9 || step == 13) {
+    kick.trigger();
+  }
+}
+
+void playSnare() {
+  if (step == 5 || step == 13) {
+    snare.trigger();
+  }
+}
+
 void playHatClosed() {
-    int k = (int) random(0, 99);
-    if (k < 50) {
-      // hatClosedArray[h][k];
-      hatClosed.trigger();
+  int a = (int) random(0, 99);
+  if (a < 50) {
+    hatClosed.trigger();
+  } else {
+  }
+}
+
+void playClap() {
+  if (step == 5) {
+    int b = (int) random(0, 99);
+    if (b < 80) {
+      clap.trigger();
     } else {
     }
   }
-
-  void playKick() {
-    if (step == 1 || step == 5 || step == 9 || step == 13) {
-      kick.trigger();
+  if (step == 8) {
+    int c = (int) random(0, 99);
+    if (c < 50) {
+      clap.trigger();
+    } else {
     }
   }
-
-  void playSnare() {
-    if (step == 5 || step == 13) {
-      snare.trigger();
+  if (step == 13) {
+    int d = (int) random(0, 99);
+    if (d < 90) {
+      clap.trigger();
+    } else {
     }
   }
+    if (step == 15) {
+    int e = (int) random(0, 99);
+    if (e < 70) {
+      clap.trigger();
+    } else {
+    }
+  }
+}
 
