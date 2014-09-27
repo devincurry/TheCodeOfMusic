@@ -67,22 +67,22 @@ boolean beat00 = true;
  boolean beat15 = true;
  */
 
-boolean beat00 = false;
-boolean beat01 = false;
+boolean beat00 = true;
+boolean beat01 = true;
 boolean beat02 = false;
-boolean beat03 = false;
+boolean beat03 = true;
 boolean beat04 = false;
-boolean beat05 = false;
+boolean beat05 = true;
 boolean beat06 = false;
-boolean beat07 = false;
+boolean beat07 = true;
 boolean beat08 = false;
 boolean beat09 = false;
-boolean beat10 = false;
-boolean beat11 = false;
-boolean beat12 = false;
-boolean beat13 = false;
+boolean beat10 = true;
+boolean beat11 = true;
+boolean beat12 = true;
+boolean beat13 = true;
 boolean beat14 = false;
-boolean beat15 = false;
+boolean beat15 = true;
 
 int [][] stepArray = { 
   {
@@ -305,6 +305,7 @@ void checkStep(int stepNumb) {
       rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     }
   }  
+  
   if (stepNumb == 5) {
     if (beat05 == false) {
       velocity = 0;
@@ -337,6 +338,7 @@ void checkStep(int stepNumb) {
       rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     }
   }  
+  
   if (stepNumb == 7) {
     if (beat07 == false) {
       velocity = 0;
@@ -353,6 +355,7 @@ void checkStep(int stepNumb) {
       rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     }
   }  
+  
   if (stepNumb == 8) {
     if (beat08 == false) {
       velocity = 0;
@@ -369,6 +372,7 @@ void checkStep(int stepNumb) {
       rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     }
   }  
+  
   if (stepNumb == 9) {
     if (beat09 == false) {
       velocity = 0;
@@ -402,6 +406,7 @@ void checkStep(int stepNumb) {
       rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     }
   }  
+  
   if (stepNumb == 11) {
     if (beat11 == false) {
       velocity = 0;
@@ -418,6 +423,7 @@ void checkStep(int stepNumb) {
       rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     }
   }  
+  
   if (stepNumb == 12) {
     if (beat12 == false) {
       velocity = 0;
@@ -434,6 +440,7 @@ void checkStep(int stepNumb) {
       rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     }
   }  
+  
   if (stepNumb == 13) {
     if (beat13 == false) {
       velocity = 0;
@@ -450,6 +457,7 @@ void checkStep(int stepNumb) {
       rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     }
   }  
+  
   if (stepNumb == 14) {
     if (beat14 == false) {
       velocity = 0;
@@ -466,6 +474,7 @@ void checkStep(int stepNumb) {
       rect(buttonX+buttonSpace, buttonY, buttonW, buttonH);
     }
   }  
+  
   if (stepNumb == 15) {
     if (beat15 == false) {
       velocity = 0;

@@ -5,11 +5,18 @@ import ddf.minim.*;
 Minim minim;
 AudioSample kick;
 AudioSample snare;
+AudioSample hatClosed;
+AudioSample hatOpen;
+AudioSample crash;
+AudioSample clap;
+AudioSample rimshot;
 
 AudioContext ac;
 int pitch;
 boolean isBeat;
-int beatsPerMeasure;
+int beatsPerMeasure = 4;
+int beatsPerBar = beatsPerMeasure*4;
+
 float beatLength;
 
 int BPM;
@@ -19,22 +26,103 @@ int step = 1;
 WavePlayer wp;
 Gain g;
 
+int [][] hatClosedArray = { 
+  {
+    0, 1
+  }
+  , 
+  {
+    0, 1
+  }
+  , 
+  {
+    0, 1
+  }
+  , 
+  {
+    0, 1
+  }
+  , 
+  {
+    0, 1
+  }
+  , 
+  {
+    0, 1
+  }
+  , 
+  {
+    0, 1
+  }
+  , 
+  {
+    0, 1
+  }
+  , 
+  {
+    0, 1
+  }
+  , 
+  {
+    0, 1
+  }
+  , 
+  {
+    0, 1
+  }
+  , 
+  {
+    0, 1
+  }
+  , 
+  {
+    0, 1
+  }
+  , 
+  {
+    0, 1
+  }
+  , 
+  {
+    0, 1
+  }
+  , 
+  {
+    0, 1
+  }
+};
+
+
 void setup() {  
   ac = new AudioContext();
-  BPM = 140;
-  beatsPerMeasure = 16;
+  BPM = 320;
+  //beatsPerMeasure = 4;
+  //beatsPerBar = 16;
   beatLength = 1.0/BPM*60*1000;
   Clock clock = new Clock(ac, beatLength);
 
   minim = new Minim(this);
 
   kick = minim.loadSample("707 Kick 1.wav", 512);
-
   if ( kick == null ) println("Didn't get kick!");
 
   snare = minim.loadSample("707 Snare 1.wav", 512);
   if ( snare == null ) println("Didn't get snare!");
 
+  hatClosed = minim.loadSample("707 Hat_closed.wav", 512);
+  if ( hatClosed == null ) println("Didn't get closed hat!");
+
+  hatOpen = minim.loadSample("707 Hat_open.wav", 512);
+  if ( hatOpen == null ) println("Didn't get open hat!");
+
+  crash = minim.loadSample("707 Crash.wav", 512);
+  if ( crash == null ) println("Didn't get crash!");
+
+  clap = minim.loadSample("707 Clap.wav", 512);
+  if ( clap == null ) println("Didn't get the clap!");
+
+  rimshot = minim.loadSample("707 Rimshot.wav", 512);
+  if ( rimshot == null ) println("Didn't get rimshot!");
 
   clock.addMessageListener(
   new Bead() {    
@@ -57,48 +145,50 @@ void draw() {
     int y = (int)map(pitch, 60, 70, height, 0);
     rect(x, y, side, side);
 
-    /*
-    if (step >= beatLength) {
-     step = 0;
-     } else {
-     step = step+1;
-     }
-     */
     step = step +1;
-
-
+    //countSteps();
     isBeat = false;
   }
-  //  if (step > 15){
-  //  step = 0;
-  //  }
   countSteps();
+  //kickDrum();
   println(step);
 }
 
 void onClock(Clock c) {   
   if (c.isBeat()) {      
-    //pitch = Pitch.forceToScale((int)random(60, 70), Pitch.dorian, 12);
-    //float freq = Pitch.mtof(pitch);
-
-    kick.trigger();
-    /*
-    WavePlayer wp = new WavePlayer(ac, freq, Buffer.SINE);
-     Gain g = new Gain(ac, 1, new Envelope(ac, 0));
-     g.addInput(wp);
-     ac.out.addInput(g);
-     ((Envelope)g.getGainEnvelope()).addSegment(0.1, 100);
-     ((Envelope)g.getGainEnvelope()).addSegment(0.1, beatLength - 200);
-     ((Envelope)g.getGainEnvelope()).addSegment(0, 100, new KillTrigger(g));
-     */
+    //kick.trigger();
+    //clap.trigger();
+    playKick();
+    playSnare();
+    playHatClosed();
     isBeat = true;
-    //    countSteps(step);
   }
 }
 
 void countSteps() {
-  if (step > beatsPerMeasure) {
+  if (step > beatsPerBar) {
     step = 1;
   }
 }
+
+void playHatClosed() {
+    int k = (int) random(0, 99);
+    if (k < 50) {
+      // hatClosedArray[h][k];
+      hatClosed.trigger();
+    } else {
+    }
+  }
+
+  void playKick() {
+    if (step == 1 || step == 5 || step == 9 || step == 13) {
+      kick.trigger();
+    }
+  }
+
+  void playSnare() {
+    if (step == 5 || step == 13) {
+      snare.trigger();
+    }
+  }
 
