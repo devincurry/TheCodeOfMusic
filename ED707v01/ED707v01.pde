@@ -23,12 +23,14 @@ int BPM;
 
 int step = 1;
 
+boolean fouronthefloor = false;
+
 WavePlayer wp;
 Gain g;
 
 void setup() {  
   ac = new AudioContext();
-  BPM = 320;
+  BPM = 420;
   //beatsPerMeasure = 4;
   //beatsPerBar = 16;
   beatLength = 1.0/BPM*60*1000;
@@ -78,7 +80,7 @@ void draw() {
     int y = (int)map(pitch, 60, 70, height, 0);
     rect(x, y, side, side);
 
-    step = step +1;
+    //step = step + 1;
     //countSteps();
     isBeat = false;
   }
@@ -87,13 +89,20 @@ void draw() {
   println(step);
 }
 
+
 void onClock(Clock c) {   
   if (c.isBeat()) {      
-    playKick();
     playSnare();
     playHatClosed();
     playClap();
+    playCrash();
+    if (fouronthefloor == true) {
+      playKick1();
+    } else {
+      playKick2();
+    }
     isBeat = true;
+    step = step + 1;
   }
 }
 
@@ -103,15 +112,33 @@ void countSteps() {
   }
 }
 
-void playKick() {
+void playKick1() {
   if (step == 1 || step == 5 || step == 9 || step == 13) {
     kick.trigger();
+  }
+}
+
+void playKick2() {
+  if (step == 1 || step == 9 || step == 13) {
+    kick.trigger();
+  }
+  if (step == 4 || step == 12 || step == 16) {
+    int y = (int) random(0, 99);
+    if (y < 20) {
+      kick.trigger();
+    }
   }
 }
 
 void playSnare() {
   if (step == 5 || step == 13) {
     snare.trigger();
+  }
+  int z = (int) random(0, 99);
+  if (step == 14 || step == 15 || step == 16) {
+    if (z < 30) {
+      snare.trigger();
+    }
   }
 }
 
@@ -145,10 +172,20 @@ void playClap() {
     } else {
     }
   }
-    if (step == 15) {
+  if (step == 15) {
     int e = (int) random(0, 99);
     if (e < 70) {
       clap.trigger();
+    } else {
+    }
+  }
+}
+
+void playCrash() {
+  if (step == 1) {
+    int f = (int) random(0, 99);
+    if (f < 20) {
+      crash.trigger();
     } else {
     }
   }
