@@ -23,7 +23,13 @@ int BPM;
 
 int step = 1;
 
+boolean kickOn = true;
 boolean fouronthefloor = false;
+
+boolean snareOn = true;
+boolean hatClosedOn = true;
+boolean clapOn = true;
+boolean crashOn = true;
 
 WavePlayer wp;
 Gain g;
@@ -91,16 +97,37 @@ void draw() {
 
 
 void onClock(Clock c) {   
-  if (c.isBeat()) {      
-    playSnare();
-    playHatClosed();
-    playClap();
-    playCrash();
-    if (fouronthefloor == true) {
-      playKick1();
+  if (c.isBeat()) { 
+
+    if (kickOn) {
+      if (fouronthefloor) {
+        playKick1();
+      } else {
+        playKick2();
+      }
     } else {
-      playKick2();
     }
+
+    if (snareOn) {  
+      playSnare();
+    } else {
+    }
+
+    if (hatClosedOn) {
+      playHatClosed();
+    } else {
+    }
+
+    if (clapOn) {
+      playClap();
+    } else {
+    }
+
+    if (crashOn) {
+      playCrash();
+    } else {
+    }
+
     isBeat = true;
     step = step + 1;
   }
@@ -144,7 +171,7 @@ void playSnare() {
 
 void playHatClosed() {
   int a = (int) random(0, 99);
-  if (a < 50) {
+  if (a < 70) {
     hatClosed.trigger();
   } else {
   }
