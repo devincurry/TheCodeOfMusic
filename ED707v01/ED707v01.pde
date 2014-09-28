@@ -1,3 +1,5 @@
+PImage logo;
+
 import beads.*;
 import java.util.Arrays;
 import ddf.minim.*;
@@ -25,16 +27,33 @@ int step = 1;
 
 boolean kickOn = true;
 boolean fouronthefloor = false;
-
 boolean snareOn = true;
 boolean hatClosedOn = true;
 boolean clapOn = true;
 boolean crashOn = true;
+boolean rimshotOn = true;
 
 WavePlayer wp;
 Gain g;
 
-void setup() {  
+//int buttonW = 80;
+//int buttonH = 150;
+int buttonW;
+int buttonH;
+float buttonY;
+int buttons = 6; //how many buttons are there?
+int buttonHue = 0;
+int buttonLt = 100;
+int buttonDk = 50;
+
+void setup() {
+  size (800, 800);
+  colorMode(HSB, 100, 100, 100);
+  background(0, 0, 100);
+  noStroke();
+  logo = loadImage("ocplogo.jpg");
+  image(logo, 0, 0);
+
   ac = new AudioContext();
   BPM = 420;
   //beatsPerMeasure = 4;
@@ -79,12 +98,16 @@ void setup() {
 }
 
 void draw() {
+  image(logo, 0, 0);
+  drawButtons();
+
   if (isBeat) {
-    background(0);
+    //    background(0);
+    //background(random (0, 255));
     int side = (int)random(10, 40);
     int x = (int)random(0, width);
     int y = (int)map(pitch, 60, 70, height, 0);
-    rect(x, y, side, side);
+    //rect(x, y, side, side);
 
     //step = step + 1;
     //countSteps();
@@ -94,6 +117,71 @@ void draw() {
   //kickDrum();
   println(step);
 }
+
+void drawButtons() {
+  buttonW = width/(buttons*2);
+  buttonH = height/8;
+  buttonY = height/4;
+  float buttonSpace = buttonW;
+
+  if (kickOn) {
+    fill(buttonHue, 100, buttonLt);
+    rect (width/(buttons*2), buttonY, buttonW, buttonH);
+  } else {
+    fill(buttonHue, 100, buttonDk);
+    rect (width/(buttons*2), buttonY, buttonW, buttonH);
+  }
+
+  if (snareOn) {
+    fill(buttonHue, 100, buttonLt);
+    rect (width/(buttons*2)*2+buttonSpace, buttonY, buttonW, buttonH);
+  } else {
+    fill(buttonHue, 100, buttonDk);
+    rect (width/(buttons*2)*2+buttonSpace, buttonY, buttonW, buttonH);
+  }
+
+  if (hatClosedOn) {
+    fill(buttonHue, 100, buttonLt);
+    rect ((width/(buttons*2)*4)+buttonSpace, buttonY, buttonW, buttonH);
+  } else {
+    fill(buttonHue, 100, buttonDk);
+    rect ((width/(buttons*2)*4)+buttonSpace, buttonY, buttonW, buttonH);
+  }
+
+  if (clapOn) {
+    fill(buttonHue, 100, buttonLt);
+    rect (width/(buttons*2)*6+buttonSpace, buttonY, buttonW, buttonH);
+  } else {
+    fill(buttonHue, 100, buttonDk);
+    rect (width/(buttons*2)*6+buttonSpace, buttonY, buttonW, buttonH);
+  }
+
+  if (crashOn) {
+    fill(buttonHue, 100, buttonLt);
+    rect (width/(buttons*2)*8+buttonSpace, buttonY, buttonW, buttonH);
+  } else {
+    fill(buttonHue, 100, buttonDk);
+    rect (width/(buttons*2)*8+buttonSpace, buttonY, buttonW, buttonH);
+  }
+
+  if (rimshotOn) {
+    fill(buttonHue, 100, buttonLt);
+    rect (width/(buttons*2)*10+buttonSpace, buttonY, buttonW, buttonH);
+  } else {
+    fill(buttonHue, 100, buttonDk);
+    rect (width/(buttons*2)*10+buttonSpace, buttonY, buttonW, buttonH);
+  }
+/*
+  if (rimshotOn) {
+    fill(buttonHue, 100, buttonLt);
+    rect (width/(buttons*2)*8+buttonW, buttonY, buttonW, buttonH);
+  } else {
+    fill(buttonHue, 100, buttonDk);
+    rect (width/(buttons*2)*8+buttonW, buttonY, buttonW, buttonH);
+  }
+  */
+}
+
 
 
 void onClock(Clock c) {   
@@ -125,6 +213,11 @@ void onClock(Clock c) {
 
     if (crashOn) {
       playCrash();
+    } else {
+    }
+
+    if (rimshotOn) {
+      playRimshot();
     } else {
     }
 
@@ -215,6 +308,14 @@ void playCrash() {
       crash.trigger();
     } else {
     }
+  }
+}
+
+void playRimshot() {
+  int g = (int) random (0, 99);
+  if (g < 40) {
+    rimshot.trigger();
+  } else {
   }
 }
 
