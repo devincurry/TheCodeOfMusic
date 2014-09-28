@@ -1,4 +1,5 @@
 PImage logo;
+PFont font;
 
 import beads.*;
 import java.util.Arrays;
@@ -46,13 +47,50 @@ int buttonHue = 0;
 int buttonLt = 100;
 int buttonDk = 50;
 
+int textX;
+int textY;
+int textHeight = 36;
+/*
+String [] textArray = {
+ {
+ "Press the number keys!", "1 = Kick", "2 = Snare", "3 = Closed Hi Hat", "4 = Handclap", "5 = Crash", "6 = Rimshot"
+ }
+ };
+ */
+
+
 void setup() {
   size (800, 800);
   colorMode(HSB, 100, 100, 100);
   background(0, 0, 100);
   noStroke();
-  logo = loadImage("ocplogo.jpg");
+  logo = loadImage("ocplogo.jpg");  
   image(logo, 0, 0);
+
+  textX = width/4;
+  textY = height/2;
+  fill(0, 0, 0);
+  font = loadFont("PerfectDOSVGA437-48.vlw");
+  textFont(font, 36);
+  textAlign(LEFT);
+
+  /*
+   for (int t = 0; t < buttons; t++) {
+   text(textArray[t], width/3, textY + (textHeight*t));
+   }
+   */
+
+  text("Press the number keys!", textX, textY);
+  text(" ", textX, textY + textHeight);
+  text("1 = Kick", textX, textY + (textHeight*2));
+  text("2 = Snare", textX, textY + (textHeight*3));
+  text("3 = Closed Hi Hat", textX, textY + (textHeight*4));
+  text("4 = Handclap", textX, textY + (textHeight*5));
+  text("5 = Crash", textX, textY + (textHeight*6));
+  text("6 = Rimshot", textX, textY + (textHeight*7));
+  text("0 = Four On The Floor!", textX, textY + (textHeight*8));
+
+
 
   ac = new AudioContext();
   BPM = 420;
@@ -171,18 +209,20 @@ void drawButtons() {
     fill(buttonHue, 100, buttonDk);
     rect (width/(buttons*2)*10+buttonSpace, buttonY, buttonW, buttonH);
   }
-  /*
-  if (rimshotOn) {
-   fill(buttonHue, 100, buttonLt);
-   rect (width/(buttons*2)*8+buttonW, buttonY, buttonW, buttonH);
-   } else {
-   fill(buttonHue, 100, buttonDk);
-   rect (width/(buttons*2)*8+buttonW, buttonY, buttonW, buttonH);
-   }
-   */
+
+  if (fouronthefloor) {
+    fill(0, 100, 100);
+    textAlign(CENTER);
+      textFont(font, 48);
+
+    text("FOUR ON THE FLOOR IN EFFECT!", width/2, height-height/14);
+  } else {
+    fill(0, 0, 100);
+    textAlign(CENTER);
+      textFont(font, 48);
+
+    text("FOUR ON THE FLOOR IN EFFECT!", width/2, height-height/14);  }
 }
-
-
 
 void onClock(Clock c) {   
   if (c.isBeat()) { 
@@ -365,6 +405,14 @@ void keyPressed() {
       rimshotOn = false;
     } else {
       rimshotOn = true;
+    }
+  }
+
+  if (key == '0' ) {
+    if (fouronthefloor) {
+      fouronthefloor = false;
+    } else {
+      fouronthefloor = true;
     }
   }
 }
