@@ -115,7 +115,7 @@ void draw() {
   }
   countSteps();
   //kickDrum();
-  println(step);
+  println(step, kickOn);
 }
 
 void drawButtons() {
@@ -171,15 +171,15 @@ void drawButtons() {
     fill(buttonHue, 100, buttonDk);
     rect (width/(buttons*2)*10+buttonSpace, buttonY, buttonW, buttonH);
   }
-/*
+  /*
   if (rimshotOn) {
-    fill(buttonHue, 100, buttonLt);
-    rect (width/(buttons*2)*8+buttonW, buttonY, buttonW, buttonH);
-  } else {
-    fill(buttonHue, 100, buttonDk);
-    rect (width/(buttons*2)*8+buttonW, buttonY, buttonW, buttonH);
-  }
-  */
+   fill(buttonHue, 100, buttonLt);
+   rect (width/(buttons*2)*8+buttonW, buttonY, buttonW, buttonH);
+   } else {
+   fill(buttonHue, 100, buttonDk);
+   rect (width/(buttons*2)*8+buttonW, buttonY, buttonW, buttonH);
+   }
+   */
 }
 
 
@@ -316,6 +316,56 @@ void playRimshot() {
   if (g < 40) {
     rimshot.trigger();
   } else {
+  }
+}
+
+void keyPressed() {
+  if ( key == '1' ) {
+    if (kickOn) {
+      kickOn = false;
+    } else {
+      kickOn = true;
+    }
+  }
+
+  if (key == '2' ) {
+    if (snareOn) {
+      snareOn = false;
+    } else {
+      snareOn = true;
+    }
+  }
+
+  if (key == '3' ) {
+    if (hatClosedOn) {
+      hatClosedOn = false;
+    } else {
+      hatClosedOn = true;
+    }
+  }
+
+  if (key == '4' ) {
+    if (clapOn) {
+      clapOn = false;
+    } else {
+      clapOn = true;
+    }
+  }
+
+  if (key == '5' ) {
+    if (crashOn) {
+      crashOn = false;
+    } else {
+      crashOn = true;
+    }
+  }
+
+  if (key == '6' ) {
+    if (rimshotOn) {
+      rimshotOn = false;
+    } else {
+      rimshotOn = true;
+    }
   }
 }
 
