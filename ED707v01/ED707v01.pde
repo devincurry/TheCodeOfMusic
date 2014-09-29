@@ -37,8 +37,6 @@ boolean rimshotOn = false;
 WavePlayer wp;
 Gain g;
 
-//int buttonW = 80;
-//int buttonH = 150;
 int buttonW;
 int buttonH;
 float buttonY;
