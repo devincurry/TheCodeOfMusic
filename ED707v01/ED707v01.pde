@@ -26,13 +26,13 @@ int BPM;
 
 int step = 1;
 
-boolean kickOn = true;
+boolean kickOn = false;
 boolean fouronthefloor = false;
-boolean snareOn = true;
-boolean hatClosedOn = true;
-boolean clapOn = true;
-boolean crashOn = true;
-boolean rimshotOn = true;
+boolean snareOn = false;
+boolean hatClosedOn = false;
+boolean clapOn = false;
+boolean crashOn = false;
+boolean rimshotOn = false;
 
 WavePlayer wp;
 Gain g;
@@ -50,14 +50,6 @@ int buttonDk = 50;
 int textX;
 int textY;
 int textHeight = 36;
-/*
-String [] textArray = {
- {
- "Press the number keys!", "1 = Kick", "2 = Snare", "3 = Closed Hi Hat", "4 = Handclap", "5 = Crash", "6 = Rimshot"
- }
- };
- */
-
 
 void setup() {
   size (800, 800);
@@ -73,13 +65,6 @@ void setup() {
   font = loadFont("PerfectDOSVGA437-48.vlw");
   textFont(font, 36);
   textAlign(LEFT);
-
-  /*
-   for (int t = 0; t < buttons; t++) {
-   text(textArray[t], width/3, textY + (textHeight*t));
-   }
-   */
-
   text("Press the number keys!", textX, textY);
   text(" ", textX, textY + textHeight);
   text("1 = Kick", textX, textY + (textHeight*2));
@@ -89,8 +74,6 @@ void setup() {
   text("5 = Crash", textX, textY + (textHeight*6));
   text("6 = Rimshot", textX, textY + (textHeight*7));
   text("0 = Four On The Floor!", textX, textY + (textHeight*8));
-
-
 
   ac = new AudioContext();
   BPM = 420;
@@ -138,90 +121,64 @@ void setup() {
 void draw() {
   image(logo, 0, 0);
   drawButtons();
+  fill(0, 0, 100);
+  rect(width-300, 0, 300, 130);
+  fill(0, 100, 100);
+  text("STEP", width-170, 110);
+  text(step, width-80, 110);
 
   if (isBeat) {
-    //    background(0);
-    //background(random (0, 255));
     int side = (int)random(10, 40);
     int x = (int)random(0, width);
     int y = (int)map(pitch, 60, 70, height, 0);
-    //rect(x, y, side, side);
-
-    //step = step + 1;
-    //countSteps();
     isBeat = false;
   }
   countSteps();
-  //kickDrum();
-  println(step, kickOn);
 }
 
 void drawButtons() {
+  int buttonX = width/(buttons*2);
   buttonW = width/(buttons*2);
   buttonH = height/8;
   buttonY = height/4;
-  float buttonSpace = buttonW;
+  float buttonSpace = buttonW/2;
 
-  if (kickOn) {
-    fill(buttonHue, 100, buttonLt);
-    rect (width/(buttons*2), buttonY, buttonW, buttonH);
-  } else {
-    fill(buttonHue, 100, buttonDk);
-    rect (width/(buttons*2), buttonY, buttonW, buttonH);
-  }
+  pushMatrix();
+  translate(buttonSpace, 0);
+  
+  fill(buttonHue, 100, kickOn ? buttonLt : buttonDk);
+  rect (buttonX*0, buttonY, buttonW, buttonH);
 
-  if (snareOn) {
-    fill(buttonHue, 100, buttonLt);
-    rect (width/(buttons*2)*2+buttonSpace, buttonY, buttonW, buttonH);
-  } else {
-    fill(buttonHue, 100, buttonDk);
-    rect (width/(buttons*2)*2+buttonSpace, buttonY, buttonW, buttonH);
-  }
+  fill(buttonHue, 100, snareOn ? buttonLt : buttonDk);
+  rect (buttonX*2, buttonY, buttonW, buttonH);
 
-  if (hatClosedOn) {
-    fill(buttonHue, 100, buttonLt);
-    rect ((width/(buttons*2)*4)+buttonSpace, buttonY, buttonW, buttonH);
-  } else {
-    fill(buttonHue, 100, buttonDk);
-    rect ((width/(buttons*2)*4)+buttonSpace, buttonY, buttonW, buttonH);
-  }
+  fill(buttonHue, 100, hatClosedOn ? buttonLt : buttonDk);
+  rect (buttonX*4, buttonY, buttonW, buttonH);
 
-  if (clapOn) {
-    fill(buttonHue, 100, buttonLt);
-    rect (width/(buttons*2)*6+buttonSpace, buttonY, buttonW, buttonH);
-  } else {
-    fill(buttonHue, 100, buttonDk);
-    rect (width/(buttons*2)*6+buttonSpace, buttonY, buttonW, buttonH);
-  }
+  fill(buttonHue, 100, clapOn ? buttonLt : buttonDk);
+  rect (buttonX*6, buttonY, buttonW, buttonH);
 
-  if (crashOn) {
-    fill(buttonHue, 100, buttonLt);
-    rect (width/(buttons*2)*8+buttonSpace, buttonY, buttonW, buttonH);
-  } else {
-    fill(buttonHue, 100, buttonDk);
-    rect (width/(buttons*2)*8+buttonSpace, buttonY, buttonW, buttonH);
-  }
+  fill(buttonHue, 100, crashOn ? buttonLt : buttonDk);
+  rect (buttonX*8, buttonY, buttonW, buttonH);
 
-  if (rimshotOn) {
-    fill(buttonHue, 100, buttonLt);
-    rect (width/(buttons*2)*10+buttonSpace, buttonY, buttonW, buttonH);
-  } else {
-    fill(buttonHue, 100, buttonDk);
-    rect (width/(buttons*2)*10+buttonSpace, buttonY, buttonW, buttonH);
-  }
+  fill(buttonHue, 100, rimshotOn ? buttonLt : buttonDk);
+  rect (buttonX*10, buttonY, buttonW, buttonH);
+  
+  popMatrix();
 
   if (fouronthefloor) {
     fill(0, 100, 100);
     textAlign(CENTER);
-      textFont(font, 48);
+    textFont(font, 48);
 
     text("FOUR ON THE FLOOR IN EFFECT!", width/2, height-height/14);
   } else {
     fill(0, 0, 100);
     textAlign(CENTER);
-      textFont(font, 48);
+    textFont(font, 48);
 
-    text("FOUR ON THE FLOOR IN EFFECT!", width/2, height-height/14);  }
+    text("FOUR ON THE FLOOR IN EFFECT!", width/2, height-height/14);
+  }
 }
 
 void onClock(Clock c) {   
@@ -233,32 +190,26 @@ void onClock(Clock c) {
       } else {
         playKick2();
       }
-    } else {
     }
 
     if (snareOn) {  
       playSnare();
-    } else {
     }
 
     if (hatClosedOn) {
       playHatClosed();
-    } else {
     }
 
     if (clapOn) {
       playClap();
-    } else {
     }
 
     if (crashOn) {
       playCrash();
-    } else {
     }
 
     if (rimshotOn) {
       playRimshot();
-    } else {
     }
 
     isBeat = true;
@@ -306,7 +257,6 @@ void playHatClosed() {
   int a = (int) random(0, 99);
   if (a < 70) {
     hatClosed.trigger();
-  } else {
   }
 }
 
@@ -315,28 +265,24 @@ void playClap() {
     int b = (int) random(0, 99);
     if (b < 80) {
       clap.trigger();
-    } else {
     }
   }
   if (step == 8) {
     int c = (int) random(0, 99);
     if (c < 50) {
       clap.trigger();
-    } else {
     }
   }
   if (step == 13) {
     int d = (int) random(0, 99);
     if (d < 90) {
       clap.trigger();
-    } else {
     }
   }
   if (step == 15) {
     int e = (int) random(0, 99);
     if (e < 70) {
       clap.trigger();
-    } else {
     }
   }
 }
@@ -346,7 +292,6 @@ void playCrash() {
     int f = (int) random(0, 99);
     if (f < 20) {
       crash.trigger();
-    } else {
     }
   }
 }
@@ -355,64 +300,58 @@ void playRimshot() {
   int g = (int) random (0, 99);
   if (g < 40) {
     rimshot.trigger();
-  } else {
   }
 }
 
 void keyPressed() {
   if ( key == '1' ) {
-    if (kickOn) {
-      kickOn = false;
-    } else {
-      kickOn = true;
-    }
+    kickOn = !kickOn;
   }
 
   if (key == '2' ) {
-    if (snareOn) {
-      snareOn = false;
-    } else {
-      snareOn = true;
-    }
+    snareOn = !snareOn;
   }
 
   if (key == '3' ) {
-    if (hatClosedOn) {
-      hatClosedOn = false;
-    } else {
-      hatClosedOn = true;
-    }
+    hatClosedOn = !hatClosedOn;
   }
 
   if (key == '4' ) {
-    if (clapOn) {
-      clapOn = false;
-    } else {
-      clapOn = true;
-    }
+    clapOn = !clapOn;
   }
 
   if (key == '5' ) {
-    if (crashOn) {
-      crashOn = false;
-    } else {
-      crashOn = true;
-    }
+    crashOn = !crashOn;
   }
 
   if (key == '6' ) {
-    if (rimshotOn) {
-      rimshotOn = false;
-    } else {
-      rimshotOn = true;
-    }
+    rimshotOn = !rimshotOn;
   }
 
   if (key == '0' ) {
-    if (fouronthefloor) {
-      fouronthefloor = false;
-    } else {
-      fouronthefloor = true;
+    fouronthefloor = !fouronthefloor;
+  }
+}
+
+class Instrument {
+  float x, y, w, h;
+  AudioSample sound;
+  boolean playing;
+
+  Instrument(String soundfile, float _x, float _y) {
+    x = _x;
+    y = _y;
+    playing = false;
+    sound = minim.loadSample(soundfile, 512);
+  }
+
+  void toggle() {
+    playing = !playing;
+  }
+
+  void go() {
+    if (playing) {
+      sound.trigger();
     }
   }
 }
