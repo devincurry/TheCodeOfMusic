@@ -143,7 +143,7 @@ void drawButtons() {
 
   pushMatrix();
   translate(buttonSpace, 0);
-  
+
   fill(buttonHue, 100, kickOn ? buttonLt : buttonDk);
   rect (buttonX*0, buttonY, buttonW, buttonH);
 
@@ -161,7 +161,7 @@ void drawButtons() {
 
   fill(buttonHue, 100, rimshotOn ? buttonLt : buttonDk);
   rect (buttonX*10, buttonY, buttonW, buttonH);
-  
+
   popMatrix();
 
   if (fouronthefloor) {
@@ -232,8 +232,7 @@ void playKick2() {
     kick.trigger();
   }
   if (step == 4 || step == 12 || step == 16) {
-    int y = (int) random(0, 99);
-    if (y < 20) {
+    if (random(0,1) < .2) {
       kick.trigger();
     }
   }
@@ -243,43 +242,37 @@ void playSnare() {
   if (step == 5 || step == 13) {
     snare.trigger();
   }
-  int z = (int) random(0, 99);
   if (step == 14 || step == 15 || step == 16) {
-    if (z < 30) {
+    if (random(0,1) < .3) {
       snare.trigger();
     }
   }
 }
 
 void playHatClosed() {
-  int a = (int) random(0, 99);
-  if (a < 70) {
+  if (random(0,1) < .7) {
     hatClosed.trigger();
   }
 }
 
 void playClap() {
   if (step == 5) {
-    int b = (int) random(0, 99);
-    if (b < 80) {
+    if (random(0,1) < .8) {
       clap.trigger();
     }
   }
   if (step == 8) {
-    int c = (int) random(0, 99);
-    if (c < 50) {
+    if (random(0,1) < .5) {
       clap.trigger();
     }
   }
   if (step == 13) {
-    int d = (int) random(0, 99);
-    if (d < 90) {
+    if (random(0,1) < .9) {
       clap.trigger();
     }
   }
   if (step == 15) {
-    int e = (int) random(0, 99);
-    if (e < 70) {
+    if (random(0,1) < .7) {
       clap.trigger();
     }
   }
@@ -287,16 +280,14 @@ void playClap() {
 
 void playCrash() {
   if (step == 1) {
-    int f = (int) random(0, 99);
-    if (f < 20) {
+    if (random(0,1) < .25) {
       crash.trigger();
     }
   }
 }
 
 void playRimshot() {
-  int g = (int) random (0, 99);
-  if (g < 40) {
+  if (random(0,1) < .4) {
     rimshot.trigger();
   }
 }
