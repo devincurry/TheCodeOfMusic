@@ -63,6 +63,8 @@ void setup() {
   font = loadFont("PerfectDOSVGA437-48.vlw");
   textFont(font, 36);
   textAlign(LEFT);
+  pushMatrix();
+  translate(-25, 0);
   text("Press the number keys!", textX, textY);
   text(" ", textX, textY + textHeight);
   text("1 = Kick", textX, textY + (textHeight*2));
@@ -72,6 +74,7 @@ void setup() {
   text("5 = Crash", textX, textY + (textHeight*6));
   text("6 = Rimshot", textX, textY + (textHeight*7));
   text("0 = Four On The Floor!", textX, textY + (textHeight*8));
+  popMatrix();
 
   ac = new AudioContext();
   BPM = 420;
@@ -232,7 +235,7 @@ void playKick2() {
     kick.trigger();
   }
   if (step == 4 || step == 12 || step == 16) {
-    if (random(0,1) < .2) {
+    if (random(0, 1) < .2) {
       kick.trigger();
     }
   }
@@ -243,36 +246,36 @@ void playSnare() {
     snare.trigger();
   }
   if (step == 14 || step == 15 || step == 16) {
-    if (random(0,1) < .3) {
+    if (random(0, 1) < .3) {
       snare.trigger();
     }
   }
 }
 
 void playHatClosed() {
-  if (random(0,1) < .7) {
+  if (random(0, 1) < .7) {
     hatClosed.trigger();
   }
 }
 
 void playClap() {
   if (step == 5) {
-    if (random(0,1) < .8) {
+    if (random(0, 1) < .8) {
       clap.trigger();
     }
   }
   if (step == 8) {
-    if (random(0,1) < .5) {
+    if (random(0, 1) < .5) {
       clap.trigger();
     }
   }
   if (step == 13) {
-    if (random(0,1) < .9) {
+    if (random(0, 1) < .9) {
       clap.trigger();
     }
   }
   if (step == 15) {
-    if (random(0,1) < .7) {
+    if (random(0, 1) < .7) {
       clap.trigger();
     }
   }
@@ -280,14 +283,14 @@ void playClap() {
 
 void playCrash() {
   if (step == 1) {
-    if (random(0,1) < .25) {
+    if (random(0, 1) < .25) {
       crash.trigger();
     }
   }
 }
 
 void playRimshot() {
-  if (random(0,1) < .4) {
+  if (random(0, 1) < .4) {
     rimshot.trigger();
   }
 }
