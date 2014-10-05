@@ -19,6 +19,7 @@ float howFarInMeasure;
 
 int step = 0;
 
+int hue = 5;
 
 AudioContext ac;
 
@@ -51,6 +52,8 @@ void setup() {
   new Bead() {
     public void messageReceived(Bead message) {
       Clock c = (Clock)message;
+      playHat();
+      //hatClosed.trigger();
       onClock(c);
     }
   }
@@ -73,6 +76,8 @@ void setup() {
   //  kick = minim.loadSample("707 Kick 1.wav", 512);
   //  if ( kick == null ) println("Didn't get kick!");
   loadSamples();
+
+  colorMode(HSB, 100, 100, 100);
 }
 
 void draw() {
@@ -94,36 +99,40 @@ void draw() {
     line(beatPos, 0, beatPos, h);
 
     //now let's label them:
-    text(currentMeasure + "." + i, beatPos, -2);
-    text(beatLength*i/1000 + "s", beatPos, h + 10); 
-    
+    //    text((currentMeasure+1) + "." + i, beatPos, -2);
+    text(i+1, beatPos, -2);
+
+    //text(beatLength*i/1000 + "s", beatPos, h + 10); 
+
 
     //highlight current beat       
     if (i == currentBeat) {
 
-      fill(200);
+      fill(hue*i, 100, 100);
       noStroke();
       float currentBeat_x = currentBeat * beatWidth;
       rect(currentBeat_x, 0, beatWidth, h);
       //      hatClosed.trigger();
     }
-    if (currentMeasure > 0){
+    if (currentMeasure > 0) {
       currentMeasure = 0;
+      //playHat();
     }
     //playHat();
+    playKick();
   }   
-
+  /*
   //draw playhead
-  //see how 'howFarInMeasure' (a number between 0 and 1) is calculated in the onClock function below.
-  stroke(219, 38, 118);
-  float playheadPos = map((float)howFarInMeasure, 0, 1, 0, w);
-  line(playheadPos, 0, playheadPos, h);
-
-  //  for (int j = 0; j < beatWidth; i++){
-  //  if (playheadPos == curr){
-  //      hatClosed.trigger();
-  //  }
-
+   //see how 'howFarInMeasure' (a number between 0 and 1) is calculated in the onClock function below.
+   stroke(219, 38, 118);
+   float playheadPos = map((float)howFarInMeasure, 0, 1, 0, w);
+   line(playheadPos, 0, playheadPos, h);
+   
+   //  for (int j = 0; j < beatWidth; i++){
+   //  if (playheadPos == curr){
+   //      hatClosed.trigger();
+   //  }
+   */
   popMatrix();
 }
 
@@ -135,33 +144,42 @@ void onClock(Clock c) {
   float ticksPerMeasure = beatsPerMeasure * c.getTicksPerBeat();
   //get a number between 0 and 1 to tell us how far we are
   howFarInMeasure = (c.getCount()%ticksPerMeasure)/ticksPerMeasure;
-  playHat();
+  //playHat();
 }
 
 void playHat() {
 
   if (step == currentBeat && hatClosedOn) {
     hatClosed.trigger();
-        hatClosedOn = !hatClosedOn;
+    hatClosedOn = !hatClosedOn;
+    step = step + 1;
+    /*
     if (step > beatsPerMeasure) {
-      step = 0;
-    } else {
-      step = step+1;
-    }
+     step = 0;
+     } else {
+     step = step+1;
+     }
+     */
     //hatClosedOn = !hatClosedOn;
   } else {
     hatClosedOn = !hatClosedOn;
   }
 }
 
-void loadSamples() {
-  kick = minim.loadSample("707 Kick 1.wav", 512);
-  if ( kick == null ) println("Didn't get kick!");
-
-  snare = minim.loadSample("707 Snare 1.wav", 512);
-  if ( snare == null ) println("Didn't get snare!");
-
-  hatClosed = minim.loadSample("707 Hat_closed.wav", 512);
-  if ( hatClosed == null ) println("Didn't get closed hat!");
+void playKick() {
+  if (currentBeat == 0 || currentBeat == 4 || currentBeat == 8 || currentBeat == 12) {
+    kick.trigger();
+  }
 }
+
+  void loadSamples() {
+    kick = minim.loadSample("707 Kick 1.wav", 512);
+    if ( kick == null ) println("Didn't get kick!");
+
+    snare = minim.loadSample("707 Snare 1.wav", 512);
+    if ( snare == null ) println("Didn't get snare!");
+
+    hatClosed = minim.loadSample("707 Hat_closed.wav", 512);
+    if ( hatClosed == null ) println("Didn't get closed hat!");
+  }
 
