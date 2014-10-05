@@ -36,6 +36,7 @@ WavePlayer wp;
 Gain g;
 
 boolean hatClosedOn = true;
+boolean kickOn = true;
 
 void setup() {
 
@@ -119,7 +120,7 @@ void draw() {
       //playHat();
     }
     //playHat();
-    playKick();
+    //playKick();
   }   
   /*
   //draw playhead
@@ -145,16 +146,21 @@ void onClock(Clock c) {
   //get a number between 0 and 1 to tell us how far we are
   howFarInMeasure = (c.getCount()%ticksPerMeasure)/ticksPerMeasure;
   //playHat();
+  kickOn = true;
+  playKick();
 }
 
 void playHat() {
-
-  if (step == currentBeat && hatClosedOn) {
+  if (currentBeat < beatsPerMeasure && hatClosedOn) {
     hatClosed.trigger();
     hatClosedOn = !hatClosedOn;
-    step = step + 1;
     /*
-    if (step > beatsPerMeasure) {
+  if (step == currentBeat && hatClosedOn) {
+     hatClosed.trigger();
+     hatClosedOn = !hatClosedOn;
+     step = step + 1;
+     
+     if (step > beatsPerMeasure) {
      step = 0;
      } else {
      step = step+1;
@@ -167,19 +173,26 @@ void playHat() {
 }
 
 void playKick() {
-  if (currentBeat == 0 || currentBeat == 4 || currentBeat == 8 || currentBeat == 12) {
-    kick.trigger();
+  //  kickOn = true;
+  if (kickOn) {
+    if (currentBeat == 0 || currentBeat == 4 || currentBeat == 8 || currentBeat == 12) {
+      kick.trigger();
+      kickOn = !kickOn;
+      //    } else {
+      //      kickOn = false;
+      //    }
+    }
   }
 }
 
-  void loadSamples() {
-    kick = minim.loadSample("707 Kick 1.wav", 512);
-    if ( kick == null ) println("Didn't get kick!");
+void loadSamples() {
+  kick = minim.loadSample("707 Kick 1.wav", 512);
+  if ( kick == null ) println("Didn't get kick!");
 
-    snare = minim.loadSample("707 Snare 1.wav", 512);
-    if ( snare == null ) println("Didn't get snare!");
+  snare = minim.loadSample("707 Snare 1.wav", 512);
+  if ( snare == null ) println("Didn't get snare!");
 
-    hatClosed = minim.loadSample("707 Hat_closed.wav", 512);
-    if ( hatClosed == null ) println("Didn't get closed hat!");
-  }
+  hatClosed = minim.loadSample("707 Hat_closed.wav", 512);
+  if ( hatClosed == null ) println("Didn't get closed hat!");
+}
 
