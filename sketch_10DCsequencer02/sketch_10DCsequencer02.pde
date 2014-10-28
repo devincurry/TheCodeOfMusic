@@ -39,8 +39,12 @@ AudioSample c2Note;
 WavePlayer wp;
 Gain g;
 
-boolean hatClosedOn = true;
-boolean kickOn = true;
+boolean lowNoteOn = true;
+boolean midNoteOn = true;
+boolean hiNoteOn = true;
+boolean hatClosedOn = false;
+boolean kickOn = false;
+boolean snareOn = false;
 
 int lowNote;
 int midNote;
@@ -49,7 +53,7 @@ int hiNote;
 void setup() {
 
   ac = new AudioContext();
-  bpm = 92;
+  bpm = 120;
 
   beatsPerMeasure = 16;
 
@@ -117,6 +121,7 @@ void draw() {
     }
   }   
   popMatrix();
+  println(lowNote, midNote, hiNote, lowNoteOn, midNoteOn, hiNoteOn);
 }
 
 void onClock(Clock c) {
@@ -140,7 +145,7 @@ void onClock(Clock c) {
 }
 
 void playLowNote() {
-  if (currentBeat == 0) {
+  if (currentBeat == 0 && lowNoteOn == true) {
     if (lowNote == 1) {
       c1Note.trigger();
     }
@@ -160,7 +165,7 @@ void playLowNote() {
 }
 
 void playMidNote() {
-  if (currentBeat == 0) {
+  if (currentBeat == 0 && midNoteOn == true) {
     if (midNote == 2) {
       dNote.trigger();
     }
@@ -183,7 +188,7 @@ void playMidNote() {
 }
 
 void playHiNote() {
-  if (currentBeat == 0) {
+  if (currentBeat == 0 && hiNoteOn == true) {
     if (hiNote == 4) {
       fNote.trigger();
     }
@@ -223,26 +228,35 @@ void pickNotes() {
           hiNote = (midNote + (int) random(2, 3));
         }
       }
-      println(lowNote, midNote, hiNote);
+      //      println(lowNote, midNote, hiNote);
     }
   }
 }
 
 void playKick() {
-  if (currentBeat == 0 || currentBeat == 3 || currentBeat == 4 || currentBeat == 8 || currentBeat == 11 || currentBeat == 12) {
-    kick.trigger();
+  if (kickOn) {
+    //    if (currentBeat == 0 || currentBeat == 3 || currentBeat == 4 || currentBeat == 8 || currentBeat == 11 || currentBeat == 12) {
+    if (currentBeat == 0 || currentBeat == 6 || currentBeat == 8) {
+      kick.trigger();
+    }
   }
 }
 
 void playHat() {
-  if (currentBeat == 2 || currentBeat == 6 || currentBeat == 10 || currentBeat == 14) {
-    hatClosed.trigger();
+  if (hatClosedOn) {
+    //    if (currentBeat == 2 || currentBeat == 6 || currentBeat == 10 || currentBeat == 14) {
+    if (currentBeat == 4 || currentBeat == 12) {
+      hatClosed.trigger();
+    }
   }
 }
 
 void playSnare() {
-  if (currentBeat == 4 || currentBeat == 12){
-    snare.trigger();
+  if (snareOn) {
+    //    if (currentBeat == 4 || currentBeat == 12) {
+    if (currentBeat == 12) {
+      snare.trigger();
+    }
   }
 }
 
@@ -279,5 +293,26 @@ void loadSamples() {
 
   c2Note = minim.loadSample("C2.wav", 512);
   if ( c2Note == null ) println("Didn't get C2!");
+}
+
+void keyPressed() {
+  if ( key == '1' ) {
+    lowNoteOn = !lowNoteOn;
+  }  
+  if ( key == '2' ) {
+    midNoteOn = !midNoteOn;
+  }  
+  if ( key == '3' ) {
+    hiNoteOn = !hiNoteOn;
+  }
+  if ( key == '4' ) {
+    kickOn = !kickOn;
+  }
+  if (key == '5' ) {
+    hatClosedOn = !hatClosedOn;
+  }
+  if (key == '6' ) {
+    snareOn = !snareOn;
+  }
 }
 
